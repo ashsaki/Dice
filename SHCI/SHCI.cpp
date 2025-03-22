@@ -288,10 +288,21 @@ int main(int argc, char* argv[]) {
 
   /**READING THE ALPHA STRING FROM THE BINARY FILE*/
   if (true) {
-    std::ifstream input_a( "AlphaDets.bin", std::ios::binary );
+    // std::ifstream input_a( "AlphaDets.bin", std::ios::binary );
     int detsize = 16;
     // copies all data into buffer
-    std::vector<unsigned char> buffer_a(std::istreambuf_iterator<char>(input_a), {});
+    // std::vector<unsigned char> buffer_a(std::istreambuf_iterator<char>(input_a), {});
+
+    MPI_File fh;
+    MPI_File_open(MPI_COMM_WORLD, "AlphaDets.bin", MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
+
+    MPI_Offset filesize;
+    MPI_File_get_size(fh, &filesize);  // Get the file size
+
+    std::vector<unsigned char> buffer_a(filesize);
+    MPI_File_read_at_all(fh, 0, buffer_a.data(), filesize, MPI_UNSIGNED_CHAR, MPI_STATUS_IGNORE);
+    MPI_File_close(&fh);
+    
     int nAlphaDets = static_cast<int>(buffer_a.size()/detsize);
     cout << nAlphaDets <<endl;
     // Count number of alpha electrons in first determinant
@@ -325,9 +336,19 @@ int main(int argc, char* argv[]) {
       }
     }
     /**READING THE BETA STRING FROM THE BINARY FILE*/
-    std::ifstream input_b( "BetaDets.bin", std::ios::binary );
+    // std::ifstream input_b( "BetaDets.bin", std::ios::binary );
     // copies all data into buffer
-    std::vector<unsigned char> buffer_b(std::istreambuf_iterator<char>(input_b), {});
+    // std::vector<unsigned char> buffer_b(std::istreambuf_iterator<char>(input_b), {});
+
+    MPI_File_open(MPI_COMM_WORLD, "BetaDets.bin", MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
+
+    MPI_Offset filesize;
+    MPI_File_get_size(fh, &filesize);  // Get the file size
+
+    std::vector<unsigned char> buffer_b(filesize);
+    MPI_File_read_at_all(fh, 0, buffer_b.data(), filesize, MPI_UNSIGNED_CHAR, MPI_STATUS_IGNORE);
+    MPI_File_close(&fh);
+    
     int nBetaDets = static_cast<int>(buffer_b.size()/detsize);
     cout << nBetaDets <<endl;
     // Count number of beta electrons in first determinant
