@@ -342,7 +342,6 @@ int main(int argc, char* argv[]) {
 
     MPI_File_open(MPI_COMM_WORLD, "BetaDets.bin", MPI_MODE_RDONLY, MPI_INFO_NULL, &fh);
 
-    MPI_Offset filesize;
     MPI_File_get_size(fh, &filesize);  // Get the file size
 
     std::vector<unsigned char> buffer_b(filesize);
