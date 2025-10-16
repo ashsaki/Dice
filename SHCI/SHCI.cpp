@@ -419,7 +419,10 @@ int main(int argc, char* argv[]) {
   }
 
 #ifndef SERIAL
-  mpi::broadcast(world, ci, 0);
+  for (int j=0; j < ci[0].rows(); j++) {
+    mpi::broadcast(world, ci[0](j,0), 0);
+  }
+  // mpi::broadcast(world, ci, 0);
 #endif
 
   // #####################################################################
@@ -613,7 +616,10 @@ int main(int argc, char* argv[]) {
     // dont do this here, if perturbation theory is switched on
     if (schd.doGtensor) {
 #ifndef SERIAL
-      mpi::broadcast(world, ci, 0);
+      for (int j=0; j < ci[0].rows(); j++) {
+        mpi::broadcast(world, ci[0](j,0), 0);
+      }
+      // mpi::broadcast(world, ci, 0);
 #endif
       SOChelper::calculateSpinRDM(spinRDM, ci[0], ci[1], SHMDets, DetsSize,
                                   norbs, nelec);
