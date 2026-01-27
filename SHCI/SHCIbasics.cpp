@@ -1171,9 +1171,9 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
       pout << "X0 size: " << X0.size() << endl;
       pout << "X0[0] size: " << X0[0].size() << endl;
       pout << "Sparse Ham # connections: " << sparseHam.connections.size() << endl;
-      pout << "Sparse Ham # connections[0]: " << sparseHam.connections[0].size() << endl;
+      pout << "Sparse Ham # connections[10]: " << sparseHam.connections[10].size() << endl;
       pout << "Sparse Ham # Helems: " << sparseHam.Helements.size() << endl;
-      pout << "Sparse Ham # Helems[0]: " << sparseHam.Helements[0].size() << endl;
+      pout << "Sparse Ham # Helems[10]: " << sparseHam.Helements[10].size() << endl;
       pout << "Sparse Ham # orb-diff: " << sparseHam.orbDifference.size() << endl;
       pout << "Sparse Nbatches: " << sparseHam.Nbatches << endl;
       pout << "Sparse BatchSize: " << sparseHam.BatchSize << endl;
