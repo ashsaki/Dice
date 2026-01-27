@@ -1182,7 +1182,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
           sparseHam.Helements.begin(), 
           sparseHam.Helements.end(), 
           0, // Initial value for the sum
-          [](size_t current_sum, const std::vector<int>& inner_vec) {
+          [](size_t current_sum, const std::vector<CItype>& inner_vec) {
               return current_sum + inner_vec.size(); // Add the size of the current inner vector
           }
       );
