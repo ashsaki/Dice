@@ -840,6 +840,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
 
   CItype e0 = SHMDets[0].Energy(I1, I2, coreE);
   size_t orbDiff;
+  size_t total_connections = 0;
   if (Determinant::Trev != 0)
     updateHijForTReversal(e0, SHMDets[0], SHMDets[0], I1, I2, coreE, orbDiff);
   vector<double> E0(nroots, abs(e0));
@@ -1170,14 +1171,18 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
                           schd.davidsonTolLoose, numIter, schd.outputlevel > 0);
     else
       // Calculate the total number of elements
-      size_t total_connections = std::accumulate(
-          sparseHam.connections.begin(), 
-          sparseHam.connections.end(), 
-          0, // Initial value for the sum
-          [](size_t current_sum, const std::vector<int>& inner_vec) {
-              return current_sum + inner_vec.size(); // Add the size of the current inner vector
-          }
-      );
+      // size_t total_connections = std::accumulate(
+      //     sparseHam.connections.begin(), 
+      //     sparseHam.connections.end(), 
+      //     0, // Initial value for the sum
+      //     [](size_t current_sum, const std::vector<int>& inner_vec) {
+      //         return current_sum + inner_vec.size(); // Add the size of the current inner vector
+      //     }
+      // );
+      
+      for (const auto& inner_vec : sparseHam.connections) {
+          total_connections += inner_vec.size(); // Access the size of each inner vector
+      }
       // size_t total_helems = std::accumulate(
       //     sparseHam.Helements.begin(), 
       //     sparseHam.Helements.end(), 
