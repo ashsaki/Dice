@@ -1169,6 +1169,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
                           schd.davidsonTolLoose, numIter, schd.outputlevel > 0);
     else
       pout << "X0 size: " << X0.size() << endl;
+      pout << "X0[0] size: " << X0[0].size() << endl;
       E0 = davidson(H, X0, diag, schd.nroots + 4, schd.davidsonTolLoose,
                     numIter, schd.outputlevel > 0);
 
