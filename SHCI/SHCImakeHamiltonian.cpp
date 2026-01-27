@@ -572,7 +572,7 @@ void SHCImakeHamiltonian::MakeHfromSMHelpers2(
 
   // alpha-beta excitation
   pout << "AlphaMajorToBeta.size(): " << AlphaMajorToBeta.size() << endl;
-  pout << "AlphaMajorToBeta.size(): " << AlphaMajorToBetaLen->size() << endl;
+  // pout << "AlphaMajorToBeta.size(): " << AlphaMajorToBetaLen->size() << endl;
   for (int i = 0; i < AlphaMajorToBeta.size(); i++) {
     for (int ii = 0; ii < AlphaMajorToBetaLen[i]; ii++) {
       int Astring = i, Bstring = AlphaMajorToBeta[i][ii],
