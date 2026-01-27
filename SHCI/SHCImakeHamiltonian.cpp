@@ -484,13 +484,26 @@ void SHCImakeHamiltonian::fixForTreversal(Determinant* Dets, int DetI, int DetJ,
 
 //=============================================================================
 void SHCImakeHamiltonian::MakeHfromSMHelpers2(
-    int*& AlphaMajorToBetaLen, vector<int*>& AlphaMajorToBeta,
-    vector<int*>& AlphaMajorToDet, int*& BetaMajorToAlphaLen,
-    vector<int*>& BetaMajorToAlpha, vector<int*>& BetaMajorToDet,
-    int*& SinglesFromAlphaLen, vector<int*>& SinglesFromAlpha,
-    int*& SinglesFromBetaLen, vector<int*>& SinglesFromBeta, Determinant* Dets,
-    int StartIndex, int EndIndex, bool diskio, SparseHam& sparseHam, int Norbs,
-    oneInt& I1, twoInt& I2, double& coreE, bool DoRDM) {
+    int*& AlphaMajorToBetaLen,
+    vector<int*>& AlphaMajorToBeta,
+    vector<int*>& AlphaMajorToDet,
+    int*& BetaMajorToAlphaLen,
+    vector<int*>& BetaMajorToAlpha,
+    vector<int*>& BetaMajorToDet,
+    int*& SinglesFromAlphaLen,
+    vector<int*>& SinglesFromAlpha,
+    int*& SinglesFromBetaLen,
+    vector<int*>& SinglesFromBeta,
+    Determinant* Dets,
+    int StartIndex,
+    int EndIndex,
+    bool diskio,
+    SparseHam& sparseHam,
+    int Norbs,
+    oneInt& I1,
+    twoInt& I2,
+    double& coreE,
+    bool DoRDM) {
   //-----------------------------------------------------------------------------
   /*!
   Make the sparse Hamiltonian "sparseHam" from the Helpers
@@ -558,6 +571,8 @@ void SHCImakeHamiltonian::MakeHfromSMHelpers2(
   }
 
   // alpha-beta excitation
+  pout << "AlphaMajorToBeta.size(): " << AlphaMajorToBeta.size() << endl;
+  pout << "AlphaMajorToBeta.size(): " << AlphaMajorToBetaLen->size() << endl;
   for (int i = 0; i < AlphaMajorToBeta.size(); i++) {
     for (int ii = 0; ii < AlphaMajorToBetaLen[i]; ii++) {
       int Astring = i, Bstring = AlphaMajorToBeta[i][ii],
