@@ -30,6 +30,7 @@
 #include <map>
 #include <tuple>
 #include <vector>
+#include <numeric>
 #include "Davidson.h"
 #include "Determinants.h"
 #include "Hmult.h"
@@ -1168,12 +1169,31 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
       E0 = davidsonDirect(Hdirect, X0, diag, schd.nroots + 2,
                           schd.davidsonTolLoose, numIter, schd.outputlevel > 0);
     else
+      // Calculate the total number of elements
+      size_t total_connections = std::accumulate(
+          sparseHam.connections.begin(), 
+          sparseHam.connections.end(), 
+          0, // Initial value for the sum
+          [](size_t current_sum, const std::vector<int>& inner_vec) {
+              return current_sum + inner_vec.size(); // Add the size of the current inner vector
+          }
+      )
+      size_t total_helems = std::accumulate(
+          sparseHam.Helements.begin(), 
+          sparseHam.Helements.end(), 
+          0, // Initial value for the sum
+          [](size_t current_sum, const std::vector<int>& inner_vec) {
+              return current_sum + inner_vec.size(); // Add the size of the current inner vector
+          }
+      )
       pout << "X0 size: " << X0.size() << endl;
       pout << "X0[0] size: " << X0[0].size() << endl;
       pout << "Sparse Ham # connections: " << sparseHam.connections.size() << endl;
       pout << "Sparse Ham # connections[10]: " << sparseHam.connections[10].size() << endl;
+      pout << "Sparse Ham # total connections: " << total_connections << endl;
       pout << "Sparse Ham # Helems: " << sparseHam.Helements.size() << endl;
       pout << "Sparse Ham # Helems[10]: " << sparseHam.Helements[10].size() << endl;
+      pout << "Sparse Ham # total Helems: " << total_helems << endl;
       pout << "Sparse Ham # orb-diff: " << sparseHam.orbDifference.size() << endl;
       pout << "Sparse Nbatches: " << sparseHam.Nbatches << endl;
       pout << "Sparse BatchSize: " << sparseHam.BatchSize << endl;
