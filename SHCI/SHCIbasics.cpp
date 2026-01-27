@@ -841,6 +841,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
   CItype e0 = SHMDets[0].Energy(I1, I2, coreE);
   size_t orbDiff;
   size_t total_connections = 0;
+  size_t total_helems = 0;
   if (Determinant::Trev != 0)
     updateHijForTReversal(e0, SHMDets[0], SHMDets[0], I1, I2, coreE, orbDiff);
   vector<double> E0(nroots, abs(e0));
@@ -1183,6 +1184,10 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
       for (const auto& inner_vec : sparseHam.connections) {
           total_connections += inner_vec.size(); // Access the size of each inner vector
       }
+
+      for (const auto& inner_vec : sparseHam.Helements) {
+          total_helems += inner_vec.size(); // Access the size of each inner vector
+      }
       // size_t total_helems = std::accumulate(
       //     sparseHam.Helements.begin(), 
       //     sparseHam.Helements.end(), 
@@ -1198,7 +1203,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
       pout << "Sparse Ham # total connections: " << total_connections << endl;
       pout << "Sparse Ham # Helems: " << sparseHam.Helements.size() << endl;
       pout << "Sparse Ham # Helems[10]: " << sparseHam.Helements[10].size() << endl;
-      // pout << "Sparse Ham # total Helems: " << total_helems << endl;
+      pout << "Sparse Ham # total Helems: " << total_helems << endl;
       pout << "Sparse Ham # orb-diff: " << sparseHam.orbDifference.size() << endl;
       pout << "Sparse Nbatches: " << sparseHam.Nbatches << endl;
       pout << "Sparse BatchSize: " << sparseHam.BatchSize << endl;
