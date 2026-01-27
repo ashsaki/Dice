@@ -1177,7 +1177,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
           [](size_t current_sum, const std::vector<int>& inner_vec) {
               return current_sum + inner_vec.size(); // Add the size of the current inner vector
           }
-      )
+      );
       size_t total_helems = std::accumulate(
           sparseHam.Helements.begin(), 
           sparseHam.Helements.end(), 
@@ -1185,7 +1185,7 @@ vector<double> SHCIbasics::DoVariational(vector<MatrixXx> &ci,
           [](size_t current_sum, const std::vector<int>& inner_vec) {
               return current_sum + inner_vec.size(); // Add the size of the current inner vector
           }
-      )
+      );
       pout << "X0 size: " << X0.size() << endl;
       pout << "X0[0] size: " << X0[0].size() << endl;
       pout << "Sparse Ham # connections: " << sparseHam.connections.size() << endl;
